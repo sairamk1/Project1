@@ -1,0 +1,3270 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+# In[195]:
+
+
+#1. Get the Metadata from the above files.
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+df = pd.read_csv('https://raw.githubusercontent.com/jackiekazil/data-wrangling/master/data/chp3/data-text.csv')
+df.head(2)
+print (df.info())
+#OUTPUT
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 4656 entries, 0 to 4655
+Data columns (total 12 columns):
+Indicator                  4656 non-null object
+PUBLISH STATES             4656 non-null object
+Year                       4656 non-null int64
+WHO region                 4656 non-null object
+World Bank income group    4656 non-null object
+Country                    4656 non-null object
+Sex                        4656 non-null object
+Display Value              4656 non-null int64
+Numeric                    4656 non-null float64
+Low                        0 non-null float64
+High                       0 non-null float64
+Comments                   0 non-null float64
+dtypes: float64(4), int64(2), object(6)
+memory usage: 436.6+ KB
+None
+
+# In[196]:
+
+
+#1. Get the Metadata from the above files.
+df1 = pd.read_csv('https://raw.githubusercontent.com/kjam/data-wrangling-pycon/master/data/berlin_weather_oldest.csv')
+df1.head(2)
+print (df1.info())
+
+#OUTPUT
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 117208 entries, 0 to 117207
+Data columns (total 21 columns):
+STATION         117208 non-null object
+STATION_NAME    117208 non-null object
+DATE            117208 non-null int64
+PRCP            117208 non-null int64
+SNWD            117208 non-null int64
+SNOW            117208 non-null int64
+TMAX            117208 non-null int64
+TMIN            117208 non-null int64
+WDFG            117208 non-null int64
+PGTM            117208 non-null int64
+WSFG            117208 non-null int64
+WT09            117208 non-null int64
+WT07            117208 non-null int64
+WT01            117208 non-null int64
+WT06            117208 non-null int64
+WT05            117208 non-null int64
+WT04            117208 non-null int64
+WT16            117208 non-null int64
+WT08            117208 non-null int64
+WT18            117208 non-null int64
+WT03            117208 non-null int64
+dtypes: int64(19), object(2)
+memory usage: 18.8+ MB
+None
+# In[197]:
+
+
+#2. Get the row names from the above files.
+df.index.values
+
+#output
+
+Out[197]:
+array([   0,    1,    2, ..., 4653, 4654, 4655], dtype=int64)
+# In[198]:
+
+
+#2. Get the row names from the above files.
+
+df1.index.values
+#output
+
+Out[198]:
+array([     0,      1,      2, ..., 117205, 117206, 117207], dtype=int64)
+
+# In[199]:
+
+
+#3. Change the column name from any of the above file.
+#4. Change the column name from any of the above file and store the changes made permanently.
+df.rename(columns={'Indicator': 'Indicator_Id'}, inplace=True)
+print(df)
+#output
+                                         Indicator_Id PUBLISH STATES  Year  \
+0                    Life expectancy at birth (years)      Published  1990   
+1                    Life expectancy at birth (years)      Published  2000   
+2                   Life expectancy at age 60 (years)      Published  2012   
+3                   Life expectancy at age 60 (years)      Published  2000   
+4                    Life expectancy at birth (years)      Published  2012   
+5                    Life expectancy at birth (years)      Published  2000   
+6                   Life expectancy at age 60 (years)      Published  1990   
+7                   Life expectancy at age 60 (years)      Published  2012   
+8                    Life expectancy at birth (years)      Published  2012   
+9                    Life expectancy at birth (years)      Published  2000   
+10                   Life expectancy at birth (years)      Published  2012   
+11                   Life expectancy at birth (years)      Published  2012   
+12                  Life expectancy at age 60 (years)      Published  2012   
+13                   Life expectancy at birth (years)      Published  2012   
+14                   Life expectancy at birth (years)      Published  2000   
+15                   Life expectancy at birth (years)      Published  1990   
+16                  Life expectancy at age 60 (years)      Published  1990   
+17                   Life expectancy at birth (years)      Published  2012   
+18                  Life expectancy at age 60 (years)      Published  2000   
+19                   Life expectancy at birth (years)      Published  1990   
+20                  Life expectancy at age 60 (years)      Published  2012   
+21                  Life expectancy at age 60 (years)      Published  2012   
+22                  Life expectancy at age 60 (years)      Published  1990   
+23                  Life expectancy at age 60 (years)      Published  2000   
+24                  Life expectancy at age 60 (years)      Published  2012   
+25                   Life expectancy at birth (years)      Published  2000   
+26                  Life expectancy at age 60 (years)      Published  2000   
+27                  Life expectancy at age 60 (years)      Published  1990   
+28                   Life expectancy at birth (years)      Published  1990   
+29                   Life expectancy at birth (years)      Published  2012   
+...                                               ...            ...   ...   
+4626  Healthy life expectancy (HALE) at birth (years)      Published  2012   
+4627  Healthy life expectancy (HALE) at birth (years)      Published  2012   
+4628  Healthy life expectancy (HALE) at birth (years)      Published  2012   
+4629  Healthy life expectancy (HALE) at birth (years)      Published  2012   
+4630  Healthy life expectancy (HALE) at birth (years)      Published  2000   
+4631  Healthy life expectancy (HALE) at birth (years)      Published  2000   
+4632  Healthy life expectancy (HALE) at birth (years)      Published  2012   
+4633  Healthy life expectancy (HALE) at birth (years)      Published  2000   
+4634  Healthy life expectancy (HALE) at birth (years)      Published  2000   
+4635  Healthy life expectancy (HALE) at birth (years)      Published  2000   
+4636  Healthy life expectancy (HALE) at birth (years)      Published  2012   
+4637  Healthy life expectancy (HALE) at birth (years)      Published  2012   
+4638  Healthy life expectancy (HALE) at birth (years)      Published  2012   
+4639  Healthy life expectancy (HALE) at birth (years)      Published  2012   
+4640  Healthy life expectancy (HALE) at birth (years)      Published  2000   
+4641  Healthy life expectancy (HALE) at birth (years)      Published  2012   
+4642  Healthy life expectancy (HALE) at birth (years)      Published  2000   
+4643  Healthy life expectancy (HALE) at birth (years)      Published  2000   
+4644  Healthy life expectancy (HALE) at birth (years)      Published  2012   
+4645  Healthy life expectancy (HALE) at birth (years)      Published  2012   
+4646  Healthy life expectancy (HALE) at birth (years)      Published  2012   
+4647  Healthy life expectancy (HALE) at birth (years)      Published  2000   
+4648  Healthy life expectancy (HALE) at birth (years)      Published  2012   
+4649  Healthy life expectancy (HALE) at birth (years)      Published  2000   
+4650  Healthy life expectancy (HALE) at birth (years)      Published  2012   
+4651  Healthy life expectancy (HALE) at birth (years)      Published  2012   
+4652  Healthy life expectancy (HALE) at birth (years)      Published  2012   
+4653  Healthy life expectancy (HALE) at birth (years)      Published  2000   
+4654  Healthy life expectancy (HALE) at birth (years)      Published  2000   
+4655  Healthy life expectancy (HALE) at birth (years)      Published  2012   
+
+                 WHO region World Bank income group  \
+0                    Europe             High-income   
+1                    Europe             High-income   
+2                    Europe             High-income   
+3                    Europe             High-income   
+4     Eastern Mediterranean             High-income   
+5                  Americas             High-income   
+6                  Americas             High-income   
+7                  Americas             High-income   
+8           Western Pacific             High-income   
+9           Western Pacific             High-income   
+10          Western Pacific             High-income   
+11                   Europe             High-income   
+12                   Europe             High-income   
+13                   Europe             High-income   
+14    Eastern Mediterranean             High-income   
+15    Eastern Mediterranean             High-income   
+16    Eastern Mediterranean             High-income   
+17                 Americas             High-income   
+18                 Americas             High-income   
+19                 Americas             High-income   
+20                 Americas             High-income   
+21                 Americas             High-income   
+22          Western Pacific             High-income   
+23          Western Pacific             High-income   
+24          Western Pacific             High-income   
+25                 Americas             High-income   
+26                 Americas             High-income   
+27                 Americas             High-income   
+28                   Europe             High-income   
+29                   Europe             High-income   
+...                     ...                     ...   
+4626                 Europe     Upper-middle-income   
+4627               Americas     Upper-middle-income   
+4628                 Europe             High-income   
+4629                 Africa     Lower-middle-income   
+4630                 Africa     Upper-middle-income   
+4631  Eastern Mediterranean     Lower-middle-income   
+4632                 Africa              Low-income   
+4633        South-East Asia     Lower-middle-income   
+4634        South-East Asia     Lower-middle-income   
+4635                 Europe              Low-income   
+4636                 Europe              Low-income   
+4637        Western Pacific     Lower-middle-income   
+4638               Americas             High-income   
+4639               Americas             High-income   
+4640  Eastern Mediterranean     Lower-middle-income   
+4641        Western Pacific     Upper-middle-income   
+4642                 Africa              Low-income   
+4643                 Europe     Lower-middle-income   
+4644               Americas     Upper-middle-income   
+4645               Americas     Upper-middle-income   
+4646               Americas     Upper-middle-income   
+4647               Americas     Upper-middle-income   
+4648               Americas     Upper-middle-income   
+4649        Western Pacific     Lower-middle-income   
+4650        Western Pacific     Lower-middle-income   
+4651        Western Pacific     Lower-middle-income   
+4652  Eastern Mediterranean              Low-income   
+4653                 Africa     Upper-middle-income   
+4654                 Africa              Low-income   
+4655                 Africa              Low-income   
+
+                                 Country         Sex  Display Value  Numeric  \
+0                                Andorra  Both sexes             77     77.0   
+1                                Andorra  Both sexes             80     80.0   
+2                                Andorra      Female             28     28.0   
+3                                Andorra  Both sexes             23     23.0   
+4                   United Arab Emirates      Female             78     78.0   
+5                    Antigua and Barbuda        Male             72     72.0   
+6                    Antigua and Barbuda        Male             17     17.0   
+7                    Antigua and Barbuda  Both sexes             22     22.0   
+8                              Australia        Male             81     81.0   
+9                              Australia  Both sexes             80     80.0   
+10                             Australia  Both sexes             83     83.0   
+11                               Austria      Female             83     83.0   
+12                               Austria      Female             25     25.0   
+13                               Belgium      Female             83     83.0   
+14                               Bahrain        Male             73     73.0   
+15                               Bahrain      Female             74     74.0   
+16                               Bahrain        Male             17     17.0   
+17                               Bahamas        Male             72     72.0   
+18                               Bahamas  Both sexes             21     21.0   
+19                              Barbados        Male             71     71.0   
+20                              Barbados      Female             25     25.0   
+21                              Barbados  Both sexes             23     23.0   
+22                     Brunei Darussalam      Female             20     20.0   
+23                     Brunei Darussalam      Female             22     22.0   
+24                     Brunei Darussalam      Female             21     21.0   
+25                                Canada      Female             82     82.0   
+26                                Canada        Male             21     21.0   
+27                                Canada      Female             24     24.0   
+28                           Switzerland        Male             74     74.0   
+29                           Switzerland  Both sexes             83     83.0   
+...                                  ...         ...            ...      ...   
+4626                              Serbia      Female             67     67.0   
+4627                            Suriname  Both sexes             66     66.0   
+4628                              Sweden  Both sexes             72     72.0   
+4629                           Swaziland      Female             47     47.0   
+4630                          Seychelles        Male             61     61.0   
+4631                Syrian Arab Republic      Female             64     64.0   
+4632                                Chad      Female             44     44.0   
+4633                            Thailand        Male             59     59.0   
+4634                            Thailand      Female             65     65.0   
+4635                          Tajikistan  Both sexes             56     56.0   
+4636                          Tajikistan      Female             60     60.0   
+4637                               Tonga      Female             61     61.0   
+4638                 Trinidad and Tobago      Female             64     64.0   
+4639                 Trinidad and Tobago  Both sexes             61     61.0   
+4640                             Tunisia        Male             63     63.0   
+4641                              Tuvalu        Male             57     57.0   
+4642                              Uganda      Female             40     40.0   
+4643                             Ukraine  Both sexes             60     60.0   
+4644                             Uruguay        Male             65     65.0   
+4645                             Uruguay      Female             70     70.0   
+4646                             Uruguay  Both sexes             68     68.0   
+4647    Saint Vincent and the Grenadines  Both sexes             61     61.0   
+4648  Venezuela (Bolivarian Republic of)  Both sexes             66     66.0   
+4649                             Vanuatu        Male             59     59.0   
+4650                               Samoa        Male             62     62.0   
+4651                               Samoa      Female             66     66.0   
+4652                               Yemen  Both sexes             54     54.0   
+4653                        South Africa        Male             49     49.0   
+4654                              Zambia  Both sexes             36     36.0   
+4655                            Zimbabwe      Female             51     51.0   
+
+      Low  High  Comments  
+0     NaN   NaN       NaN  
+1     NaN   NaN       NaN  
+2     NaN   NaN       NaN  
+3     NaN   NaN       NaN  
+4     NaN   NaN       NaN  
+5     NaN   NaN       NaN  
+6     NaN   NaN       NaN  
+7     NaN   NaN       NaN  
+8     NaN   NaN       NaN  
+9     NaN   NaN       NaN  
+10    NaN   NaN       NaN  
+11    NaN   NaN       NaN  
+12    NaN   NaN       NaN  
+13    NaN   NaN       NaN  
+14    NaN   NaN       NaN  
+15    NaN   NaN       NaN  
+16    NaN   NaN       NaN  
+17    NaN   NaN       NaN  
+18    NaN   NaN       NaN  
+19    NaN   NaN       NaN  
+20    NaN   NaN       NaN  
+21    NaN   NaN       NaN  
+22    NaN   NaN       NaN  
+23    NaN   NaN       NaN  
+24    NaN   NaN       NaN  
+25    NaN   NaN       NaN  
+26    NaN   NaN       NaN  
+27    NaN   NaN       NaN  
+28    NaN   NaN       NaN  
+29    NaN   NaN       NaN  
+...   ...   ...       ...  
+4626  NaN   NaN       NaN  
+4627  NaN   NaN       NaN  
+4628  NaN   NaN       NaN  
+4629  NaN   NaN       NaN  
+4630  NaN   NaN       NaN  
+4631  NaN   NaN       NaN  
+4632  NaN   NaN       NaN  
+4633  NaN   NaN       NaN  
+4634  NaN   NaN       NaN  
+4635  NaN   NaN       NaN  
+4636  NaN   NaN       NaN  
+4637  NaN   NaN       NaN  
+4638  NaN   NaN       NaN  
+4639  NaN   NaN       NaN  
+4640  NaN   NaN       NaN  
+4641  NaN   NaN       NaN  
+4642  NaN   NaN       NaN  
+4643  NaN   NaN       NaN  
+4644  NaN   NaN       NaN  
+4645  NaN   NaN       NaN  
+4646  NaN   NaN       NaN  
+4647  NaN   NaN       NaN  
+4648  NaN   NaN       NaN  
+4649  NaN   NaN       NaN  
+4650  NaN   NaN       NaN  
+4651  NaN   NaN       NaN  
+4652  NaN   NaN       NaN  
+4653  NaN   NaN       NaN  
+4654  NaN   NaN       NaN  
+4655  NaN   NaN       NaN  
+
+[4656 rows x 12 columns]
+
+# In[200]:
+
+
+#5. Change the names of multiple columns.
+df.rename(columns={'Indicator': 'Indicator_Id','PUBLISH STATES': 'Publication Status','WHO region': 'WHO Region'}, inplace=True)
+print(df)
+#output
+                                        Indicator_Id Publication Status  \
+0                    Life expectancy at birth (years)          Published   
+1                    Life expectancy at birth (years)          Published   
+2                   Life expectancy at age 60 (years)          Published   
+3                   Life expectancy at age 60 (years)          Published   
+4                    Life expectancy at birth (years)          Published   
+5                    Life expectancy at birth (years)          Published   
+6                   Life expectancy at age 60 (years)          Published   
+7                   Life expectancy at age 60 (years)          Published   
+8                    Life expectancy at birth (years)          Published   
+9                    Life expectancy at birth (years)          Published   
+10                   Life expectancy at birth (years)          Published   
+11                   Life expectancy at birth (years)          Published   
+12                  Life expectancy at age 60 (years)          Published   
+13                   Life expectancy at birth (years)          Published   
+14                   Life expectancy at birth (years)          Published   
+15                   Life expectancy at birth (years)          Published   
+16                  Life expectancy at age 60 (years)          Published   
+17                   Life expectancy at birth (years)          Published   
+18                  Life expectancy at age 60 (years)          Published   
+19                   Life expectancy at birth (years)          Published   
+20                  Life expectancy at age 60 (years)          Published   
+21                  Life expectancy at age 60 (years)          Published   
+22                  Life expectancy at age 60 (years)          Published   
+23                  Life expectancy at age 60 (years)          Published   
+24                  Life expectancy at age 60 (years)          Published   
+25                   Life expectancy at birth (years)          Published   
+26                  Life expectancy at age 60 (years)          Published   
+27                  Life expectancy at age 60 (years)          Published   
+28                   Life expectancy at birth (years)          Published   
+29                   Life expectancy at birth (years)          Published   
+...                                               ...                ...   
+4626  Healthy life expectancy (HALE) at birth (years)          Published   
+4627  Healthy life expectancy (HALE) at birth (years)          Published   
+4628  Healthy life expectancy (HALE) at birth (years)          Published   
+4629  Healthy life expectancy (HALE) at birth (years)          Published   
+4630  Healthy life expectancy (HALE) at birth (years)          Published   
+4631  Healthy life expectancy (HALE) at birth (years)          Published   
+4632  Healthy life expectancy (HALE) at birth (years)          Published   
+4633  Healthy life expectancy (HALE) at birth (years)          Published   
+4634  Healthy life expectancy (HALE) at birth (years)          Published   
+4635  Healthy life expectancy (HALE) at birth (years)          Published   
+4636  Healthy life expectancy (HALE) at birth (years)          Published   
+4637  Healthy life expectancy (HALE) at birth (years)          Published   
+4638  Healthy life expectancy (HALE) at birth (years)          Published   
+4639  Healthy life expectancy (HALE) at birth (years)          Published   
+4640  Healthy life expectancy (HALE) at birth (years)          Published   
+4641  Healthy life expectancy (HALE) at birth (years)          Published   
+4642  Healthy life expectancy (HALE) at birth (years)          Published   
+4643  Healthy life expectancy (HALE) at birth (years)          Published   
+4644  Healthy life expectancy (HALE) at birth (years)          Published   
+4645  Healthy life expectancy (HALE) at birth (years)          Published   
+4646  Healthy life expectancy (HALE) at birth (years)          Published   
+4647  Healthy life expectancy (HALE) at birth (years)          Published   
+4648  Healthy life expectancy (HALE) at birth (years)          Published   
+4649  Healthy life expectancy (HALE) at birth (years)          Published   
+4650  Healthy life expectancy (HALE) at birth (years)          Published   
+4651  Healthy life expectancy (HALE) at birth (years)          Published   
+4652  Healthy life expectancy (HALE) at birth (years)          Published   
+4653  Healthy life expectancy (HALE) at birth (years)          Published   
+4654  Healthy life expectancy (HALE) at birth (years)          Published   
+4655  Healthy life expectancy (HALE) at birth (years)          Published   
+
+      Year             WHO Region World Bank income group  \
+0     1990                 Europe             High-income   
+1     2000                 Europe             High-income   
+2     2012                 Europe             High-income   
+3     2000                 Europe             High-income   
+4     2012  Eastern Mediterranean             High-income   
+5     2000               Americas             High-income   
+6     1990               Americas             High-income   
+7     2012               Americas             High-income   
+8     2012        Western Pacific             High-income   
+9     2000        Western Pacific             High-income   
+10    2012        Western Pacific             High-income   
+11    2012                 Europe             High-income   
+12    2012                 Europe             High-income   
+13    2012                 Europe             High-income   
+14    2000  Eastern Mediterranean             High-income   
+15    1990  Eastern Mediterranean             High-income   
+16    1990  Eastern Mediterranean             High-income   
+17    2012               Americas             High-income   
+18    2000               Americas             High-income   
+19    1990               Americas             High-income   
+20    2012               Americas             High-income   
+21    2012               Americas             High-income   
+22    1990        Western Pacific             High-income   
+23    2000        Western Pacific             High-income   
+24    2012        Western Pacific             High-income   
+25    2000               Americas             High-income   
+26    2000               Americas             High-income   
+27    1990               Americas             High-income   
+28    1990                 Europe             High-income   
+29    2012                 Europe             High-income   
+...    ...                    ...                     ...   
+4626  2012                 Europe     Upper-middle-income   
+4627  2012               Americas     Upper-middle-income   
+4628  2012                 Europe             High-income   
+4629  2012                 Africa     Lower-middle-income   
+4630  2000                 Africa     Upper-middle-income   
+4631  2000  Eastern Mediterranean     Lower-middle-income   
+4632  2012                 Africa              Low-income   
+4633  2000        South-East Asia     Lower-middle-income   
+4634  2000        South-East Asia     Lower-middle-income   
+4635  2000                 Europe              Low-income   
+4636  2012                 Europe              Low-income   
+4637  2012        Western Pacific     Lower-middle-income   
+4638  2012               Americas             High-income   
+4639  2012               Americas             High-income   
+4640  2000  Eastern Mediterranean     Lower-middle-income   
+4641  2012        Western Pacific     Upper-middle-income   
+4642  2000                 Africa              Low-income   
+4643  2000                 Europe     Lower-middle-income   
+4644  2012               Americas     Upper-middle-income   
+4645  2012               Americas     Upper-middle-income   
+4646  2012               Americas     Upper-middle-income   
+4647  2000               Americas     Upper-middle-income   
+4648  2012               Americas     Upper-middle-income   
+4649  2000        Western Pacific     Lower-middle-income   
+4650  2012        Western Pacific     Lower-middle-income   
+4651  2012        Western Pacific     Lower-middle-income   
+4652  2012  Eastern Mediterranean              Low-income   
+4653  2000                 Africa     Upper-middle-income   
+4654  2000                 Africa              Low-income   
+4655  2012                 Africa              Low-income   
+
+                                 Country         Sex  Display Value  Numeric  \
+0                                Andorra  Both sexes             77     77.0   
+1                                Andorra  Both sexes             80     80.0   
+2                                Andorra      Female             28     28.0   
+3                                Andorra  Both sexes             23     23.0   
+4                   United Arab Emirates      Female             78     78.0   
+5                    Antigua and Barbuda        Male             72     72.0   
+6                    Antigua and Barbuda        Male             17     17.0   
+7                    Antigua and Barbuda  Both sexes             22     22.0   
+8                              Australia        Male             81     81.0   
+9                              Australia  Both sexes             80     80.0   
+10                             Australia  Both sexes             83     83.0   
+11                               Austria      Female             83     83.0   
+12                               Austria      Female             25     25.0   
+13                               Belgium      Female             83     83.0   
+14                               Bahrain        Male             73     73.0   
+15                               Bahrain      Female             74     74.0   
+16                               Bahrain        Male             17     17.0   
+17                               Bahamas        Male             72     72.0   
+18                               Bahamas  Both sexes             21     21.0   
+19                              Barbados        Male             71     71.0   
+20                              Barbados      Female             25     25.0   
+21                              Barbados  Both sexes             23     23.0   
+22                     Brunei Darussalam      Female             20     20.0   
+23                     Brunei Darussalam      Female             22     22.0   
+24                     Brunei Darussalam      Female             21     21.0   
+25                                Canada      Female             82     82.0   
+26                                Canada        Male             21     21.0   
+27                                Canada      Female             24     24.0   
+28                           Switzerland        Male             74     74.0   
+29                           Switzerland  Both sexes             83     83.0   
+...                                  ...         ...            ...      ...   
+4626                              Serbia      Female             67     67.0   
+4627                            Suriname  Both sexes             66     66.0   
+4628                              Sweden  Both sexes             72     72.0   
+4629                           Swaziland      Female             47     47.0   
+4630                          Seychelles        Male             61     61.0   
+4631                Syrian Arab Republic      Female             64     64.0   
+4632                                Chad      Female             44     44.0   
+4633                            Thailand        Male             59     59.0   
+4634                            Thailand      Female             65     65.0   
+4635                          Tajikistan  Both sexes             56     56.0   
+4636                          Tajikistan      Female             60     60.0   
+4637                               Tonga      Female             61     61.0   
+4638                 Trinidad and Tobago      Female             64     64.0   
+4639                 Trinidad and Tobago  Both sexes             61     61.0   
+4640                             Tunisia        Male             63     63.0   
+4641                              Tuvalu        Male             57     57.0   
+4642                              Uganda      Female             40     40.0   
+4643                             Ukraine  Both sexes             60     60.0   
+4644                             Uruguay        Male             65     65.0   
+4645                             Uruguay      Female             70     70.0   
+4646                             Uruguay  Both sexes             68     68.0   
+4647    Saint Vincent and the Grenadines  Both sexes             61     61.0   
+4648  Venezuela (Bolivarian Republic of)  Both sexes             66     66.0   
+4649                             Vanuatu        Male             59     59.0   
+4650                               Samoa        Male             62     62.0   
+4651                               Samoa      Female             66     66.0   
+4652                               Yemen  Both sexes             54     54.0   
+4653                        South Africa        Male             49     49.0   
+4654                              Zambia  Both sexes             36     36.0   
+4655                            Zimbabwe      Female             51     51.0   
+
+      Low  High  Comments  
+0     NaN   NaN       NaN  
+1     NaN   NaN       NaN  
+2     NaN   NaN       NaN  
+3     NaN   NaN       NaN  
+4     NaN   NaN       NaN  
+5     NaN   NaN       NaN  
+6     NaN   NaN       NaN  
+7     NaN   NaN       NaN  
+8     NaN   NaN       NaN  
+9     NaN   NaN       NaN  
+10    NaN   NaN       NaN  
+11    NaN   NaN       NaN  
+12    NaN   NaN       NaN  
+13    NaN   NaN       NaN  
+14    NaN   NaN       NaN  
+15    NaN   NaN       NaN  
+16    NaN   NaN       NaN  
+17    NaN   NaN       NaN  
+18    NaN   NaN       NaN  
+19    NaN   NaN       NaN  
+20    NaN   NaN       NaN  
+21    NaN   NaN       NaN  
+22    NaN   NaN       NaN  
+23    NaN   NaN       NaN  
+24    NaN   NaN       NaN  
+25    NaN   NaN       NaN  
+26    NaN   NaN       NaN  
+27    NaN   NaN       NaN  
+28    NaN   NaN       NaN  
+29    NaN   NaN       NaN  
+...   ...   ...       ...  
+4626  NaN   NaN       NaN  
+4627  NaN   NaN       NaN  
+4628  NaN   NaN       NaN  
+4629  NaN   NaN       NaN  
+4630  NaN   NaN       NaN  
+4631  NaN   NaN       NaN  
+4632  NaN   NaN       NaN  
+4633  NaN   NaN       NaN  
+4634  NaN   NaN       NaN  
+4635  NaN   NaN       NaN  
+4636  NaN   NaN       NaN  
+4637  NaN   NaN       NaN  
+4638  NaN   NaN       NaN  
+4639  NaN   NaN       NaN  
+4640  NaN   NaN       NaN  
+4641  NaN   NaN       NaN  
+4642  NaN   NaN       NaN  
+4643  NaN   NaN       NaN  
+4644  NaN   NaN       NaN  
+4645  NaN   NaN       NaN  
+4646  NaN   NaN       NaN  
+4647  NaN   NaN       NaN  
+4648  NaN   NaN       NaN  
+4649  NaN   NaN       NaN  
+4650  NaN   NaN       NaN  
+4651  NaN   NaN       NaN  
+4652  NaN   NaN       NaN  
+4653  NaN   NaN       NaN  
+4654  NaN   NaN       NaN  
+4655  NaN   NaN       NaN  
+
+[4656 rows x 12 columns]
+
+# In[202]:
+
+
+#6. Arrange values of a particular column in ascending order.
+df.sort_values('Year', inplace=True, ascending=True)
+df
+
+#ouptput
+Indicator_Id
+Publication Status
+Year
+WHO Region
+World Bank income group
+Country
+Sex
+Display Value
+Numeric
+Low
+High
+Comments
+0
+Life expectancy at birth (years)
+Published
+1990
+Europe
+High-income
+Andorra
+Both sexes
+77
+77.0
+NaN
+NaN
+NaN
+1270
+Life expectancy at birth (years)
+Published
+1990
+Europe
+High-income
+Germany
+Male
+72
+72.0
+NaN
+NaN
+NaN
+3193
+Life expectancy at birth (years)
+Published
+1990
+Europe
+Lower-middle-income
+Republic of Moldova
+Male
+65
+65.0
+NaN
+NaN
+NaN
+3194
+Life expectancy at birth (years)
+Published
+1990
+Europe
+Lower-middle-income
+Republic of Moldova
+Both sexes
+68
+68.0
+NaN
+NaN
+NaN
+3197
+Life expectancy at age 60 (years)
+Published
+1990
+Europe
+Lower-middle-income
+Republic of Moldova
+Male
+15
+15.0
+NaN
+NaN
+NaN
+1264
+Life expectancy at birth (years)
+Published
+1990
+Europe
+High-income
+Cyprus
+Both sexes
+76
+76.0
+NaN
+NaN
+NaN
+3199
+Life expectancy at age 60 (years)
+Published
+1990
+Europe
+Lower-middle-income
+Republic of Moldova
+Both sexes
+17
+17.0
+NaN
+NaN
+NaN
+1262
+Life expectancy at age 60 (years)
+Published
+1990
+Western Pacific
+High-income
+Cook Islands
+Male
+17
+17.0
+NaN
+NaN
+NaN
+1259
+Life expectancy at birth (years)
+Published
+1990
+Western Pacific
+High-income
+Cook Islands
+Male
+67
+67.0
+NaN
+NaN
+NaN
+3203
+Life expectancy at age 60 (years)
+Published
+1990
+South-East Asia
+Lower-middle-income
+Maldives
+Female
+12
+12.0
+NaN
+NaN
+NaN
+1273
+Life expectancy at age 60 (years)
+Published
+1990
+Europe
+High-income
+Denmark
+Both sexes
+20
+20.0
+NaN
+NaN
+NaN
+3204
+Life expectancy at birth (years)
+Published
+1990
+Western Pacific
+Lower-middle-income
+Marshall Islands
+Female
+65
+65.0
+NaN
+NaN
+NaN
+1253
+Life expectancy at birth (years)
+Published
+1990
+Western Pacific
+High-income
+Brunei Darussalam
+Both sexes
+73
+73.0
+NaN
+NaN
+NaN
+1247
+Life expectancy at age 60 (years)
+Published
+1990
+Americas
+High-income
+Bahamas
+Male
+17
+17.0
+NaN
+NaN
+NaN
+3219
+Life expectancy at age 60 (years)
+Published
+1990
+Western Pacific
+Lower-middle-income
+Vanuatu
+Both sexes
+16
+16.0
+NaN
+NaN
+NaN
+3226
+Life expectancy at birth (years)
+Published
+1990
+Europe
+Upper-middle-income
+Bulgaria
+Both sexes
+71
+71.0
+NaN
+NaN
+NaN
+1240
+Life expectancy at age 60 (years)
+Published
+1990
+Europe
+High-income
+Belgium
+Female
+23
+23.0
+NaN
+NaN
+NaN
+1239
+Life expectancy at birth (years)
+Published
+1990
+Europe
+High-income
+Belgium
+Both sexes
+76
+76.0
+NaN
+NaN
+NaN
+1238
+Life expectancy at birth (years)
+Published
+1990
+Europe
+High-income
+Belgium
+Female
+79
+79.0
+NaN
+NaN
+NaN
+1237
+Life expectancy at birth (years)
+Published
+1990
+Europe
+High-income
+Austria
+Both sexes
+76
+76.0
+NaN
+NaN
+NaN
+1236
+Life expectancy at birth (years)
+Published
+1990
+Europe
+High-income
+Austria
+Male
+72
+72.0
+NaN
+NaN
+NaN
+3207
+Life expectancy at birth (years)
+Published
+1990
+Western Pacific
+Lower-middle-income
+Mongolia
+Female
+64
+64.0
+NaN
+NaN
+NaN
+3231
+Life expectancy at birth (years)
+Published
+1990
+Europe
+Upper-middle-income
+Belarus
+Female
+76
+76.0
+NaN
+NaN
+NaN
+3188
+Life expectancy at age 60 (years)
+Published
+1990
+Africa
+Lower-middle-income
+Lesotho
+Female
+17
+17.0
+NaN
+NaN
+NaN
+1277
+Life expectancy at birth (years)
+Published
+1990
+Europe
+High-income
+Estonia
+Both sexes
+70
+70.0
+NaN
+NaN
+NaN
+1302
+Life expectancy at birth (years)
+Published
+1990
+Europe
+High-income
+Hungary
+Male
+65
+65.0
+NaN
+NaN
+NaN
+3158
+Life expectancy at birth (years)
+Published
+1990
+Europe
+Lower-middle-income
+Georgia
+Male
+67
+67.0
+NaN
+NaN
+NaN
+1300
+Life expectancy at birth (years)
+Published
+1990
+Europe
+High-income
+Croatia
+Male
+69
+69.0
+NaN
+NaN
+NaN
+3159
+Life expectancy at age 60 (years)
+Published
+1990
+Europe
+Lower-middle-income
+Georgia
+Both sexes
+19
+19.0
+NaN
+NaN
+NaN
+3160
+Life expectancy at age 60 (years)
+Published
+1990
+Americas
+Lower-middle-income
+Guatemala
+Female
+19
+19.0
+NaN
+NaN
+NaN
+...
+...
+...
+...
+...
+...
+...
+...
+...
+...
+...
+...
+...
+3175
+Life expectancy at age 60 (years)
+Published
+2012
+Eastern Mediterranean
+Lower-middle-income
+Iran (Islamic Republic of)
+Male
+19
+19.0
+NaN
+NaN
+NaN
+3174
+Life expectancy at birth (years)
+Published
+2012
+Eastern Mediterranean
+Lower-middle-income
+Iran (Islamic Republic of)
+Female
+76
+76.0
+NaN
+NaN
+NaN
+1285
+Life expectancy at birth (years)
+Published
+2012
+Europe
+High-income
+France
+Both sexes
+82
+82.0
+NaN
+NaN
+NaN
+1286
+Life expectancy at age 60 (years)
+Published
+2012
+Europe
+High-income
+France
+Both sexes
+25
+25.0
+NaN
+NaN
+NaN
+3171
+Life expectancy at birth (years)
+Published
+2012
+Eastern Mediterranean
+Lower-middle-income
+Iran (Islamic Republic of)
+Male
+72
+72.0
+NaN
+NaN
+NaN
+1288
+Life expectancy at age 60 (years)
+Published
+2012
+Europe
+High-income
+United Kingdom of Great Britain and Northern I...
+Female
+25
+25.0
+NaN
+NaN
+NaN
+1290
+Life expectancy at age 60 (years)
+Published
+2012
+Europe
+High-income
+United Kingdom of Great Britain and Northern I...
+Both sexes
+24
+24.0
+NaN
+NaN
+NaN
+1292
+Life expectancy at birth (years)
+Published
+2012
+Africa
+High-income
+Equatorial Guinea
+Female
+57
+57.0
+NaN
+NaN
+NaN
+3166
+Life expectancy at age 60 (years)
+Published
+2012
+Americas
+Lower-middle-income
+Honduras
+Male
+21
+21.0
+NaN
+NaN
+NaN
+3165
+Life expectancy at birth (years)
+Published
+2012
+Americas
+Lower-middle-income
+Honduras
+Both sexes
+74
+74.0
+NaN
+NaN
+NaN
+3163
+Life expectancy at age 60 (years)
+Published
+2012
+Americas
+Lower-middle-income
+Guyana
+Male
+13
+13.0
+NaN
+NaN
+NaN
+3162
+Life expectancy at birth (years)
+Published
+2012
+Americas
+Lower-middle-income
+Guyana
+Female
+67
+67.0
+NaN
+NaN
+NaN
+1301
+Life expectancy at age 60 (years)
+Published
+2012
+Europe
+High-income
+Croatia
+Both sexes
+21
+21.0
+NaN
+NaN
+NaN
+3137
+Life expectancy at birth (years)
+Published
+2012
+Africa
+Lower-middle-income
+Cameroon
+Male
+55
+55.0
+NaN
+NaN
+NaN
+1303
+Life expectancy at birth (years)
+Published
+2012
+Europe
+High-income
+Hungary
+Both sexes
+75
+75.0
+NaN
+NaN
+NaN
+3155
+Life expectancy at birth (years)
+Published
+2012
+Western Pacific
+Lower-middle-income
+Micronesia (Federated States of)
+Male
+68
+68.0
+NaN
+NaN
+NaN
+3154
+Life expectancy at age 60 (years)
+Published
+2012
+Eastern Mediterranean
+Lower-middle-income
+Egypt
+Male
+16
+16.0
+NaN
+NaN
+NaN
+1304
+Life expectancy at age 60 (years)
+Published
+2012
+Europe
+High-income
+Hungary
+Both sexes
+20
+20.0
+NaN
+NaN
+NaN
+1306
+Life expectancy at birth (years)
+Published
+2012
+Europe
+High-income
+Ireland
+Female
+83
+83.0
+NaN
+NaN
+NaN
+3150
+Life expectancy at age 60 (years)
+Published
+2012
+Americas
+Lower-middle-income
+Ecuador
+Male
+21
+21.0
+NaN
+NaN
+NaN
+3148
+Life expectancy at birth (years)
+Published
+2012
+Americas
+Lower-middle-income
+Ecuador
+Female
+78
+78.0
+NaN
+NaN
+NaN
+3147
+Life expectancy at age 60 (years)
+Published
+2012
+Eastern Mediterranean
+Lower-middle-income
+Djibouti
+Female
+17
+17.0
+NaN
+NaN
+NaN
+3146
+Life expectancy at birth (years)
+Published
+2012
+Eastern Mediterranean
+Lower-middle-income
+Djibouti
+Both sexes
+61
+61.0
+NaN
+NaN
+NaN
+3145
+Life expectancy at birth (years)
+Published
+2012
+Eastern Mediterranean
+Lower-middle-income
+Djibouti
+Female
+63
+63.0
+NaN
+NaN
+NaN
+1309
+Life expectancy at age 60 (years)
+Published
+2012
+Europe
+High-income
+Ireland
+Female
+25
+25.0
+NaN
+NaN
+NaN
+1316
+Life expectancy at birth (years)
+Published
+2012
+Europe
+High-income
+Italy
+Both sexes
+83
+83.0
+NaN
+NaN
+NaN
+3141
+Life expectancy at birth (years)
+Published
+2012
+Africa
+Lower-middle-income
+Cabo Verde
+Both sexes
+74
+74.0
+NaN
+NaN
+NaN
+3139
+Life expectancy at age 60 (years)
+Published
+2012
+Africa
+Lower-middle-income
+Cameroon
+Female
+17
+17.0
+NaN
+NaN
+NaN
+3156
+Life expectancy at age 60 (years)
+Published
+2012
+Western Pacific
+Lower-middle-income
+Micronesia (Federated States of)
+Male
+16
+16.0
+NaN
+NaN
+NaN
+4655
+Healthy life expectancy (HALE) at birth (years)
+Published
+2012
+Africa
+Low-income
+Zimbabwe
+Female
+51
+51.0
+NaN
+NaN
+NaN
+4656 rows × 12 columns
+# In[201]:
+
+
+#7. Arrange multiple column values in ascending order.
+df1 = df.loc[0:2, ['Indicator_Id','Country','Year','WHO Region','Publication Status']]
+df1
+
+#output
+Indicator_Id
+Country
+Year
+WHO Region
+Publication Status
+0
+Life expectancy at birth (years)
+Andorra
+1990
+Europe
+Published
+1
+Life expectancy at birth (years)
+Andorra
+2000
+Europe
+Published
+2
+Life expectancy at age 60 (years)
+Andorra
+2012
+Europe
+Published
+
+# In[194]:
+
+
+#8. Make country as the first column of the dataframe.
+df.reindex(columns=['Country']+df.columns[:-1].tolist())
+#output
+
+Country
+Indicator_Id
+Publication Status
+Year
+WHO Region
+World Bank income group
+Country
+Sex
+Display Value
+Numeric
+Low
+High
+0
+Andorra
+Life expectancy at birth (years)
+Published
+1990
+Europe
+High-income
+Andorra
+Both sexes
+77
+77.0
+NaN
+NaN
+1270
+Germany
+Life expectancy at birth (years)
+Published
+1990
+Europe
+High-income
+Germany
+Male
+72
+72.0
+NaN
+NaN
+3193
+Republic of Moldova
+Life expectancy at birth (years)
+Published
+1990
+Europe
+Lower-middle-income
+Republic of Moldova
+Male
+65
+65.0
+NaN
+NaN
+3194
+Republic of Moldova
+Life expectancy at birth (years)
+Published
+1990
+Europe
+Lower-middle-income
+Republic of Moldova
+Both sexes
+68
+68.0
+NaN
+NaN
+3197
+Republic of Moldova
+Life expectancy at age 60 (years)
+Published
+1990
+Europe
+Lower-middle-income
+Republic of Moldova
+Male
+15
+15.0
+NaN
+NaN
+1264
+Cyprus
+Life expectancy at birth (years)
+Published
+1990
+Europe
+High-income
+Cyprus
+Both sexes
+76
+76.0
+NaN
+NaN
+3199
+Republic of Moldova
+Life expectancy at age 60 (years)
+Published
+1990
+Europe
+Lower-middle-income
+Republic of Moldova
+Both sexes
+17
+17.0
+NaN
+NaN
+1262
+Cook Islands
+Life expectancy at age 60 (years)
+Published
+1990
+Western Pacific
+High-income
+Cook Islands
+Male
+17
+17.0
+NaN
+NaN
+1259
+Cook Islands
+Life expectancy at birth (years)
+Published
+1990
+Western Pacific
+High-income
+Cook Islands
+Male
+67
+67.0
+NaN
+NaN
+3203
+Maldives
+Life expectancy at age 60 (years)
+Published
+1990
+South-East Asia
+Lower-middle-income
+Maldives
+Female
+12
+12.0
+NaN
+NaN
+1273
+Denmark
+Life expectancy at age 60 (years)
+Published
+1990
+Europe
+High-income
+Denmark
+Both sexes
+20
+20.0
+NaN
+NaN
+3204
+Marshall Islands
+Life expectancy at birth (years)
+Published
+1990
+Western Pacific
+Lower-middle-income
+Marshall Islands
+Female
+65
+65.0
+NaN
+NaN
+1253
+Brunei Darussalam
+Life expectancy at birth (years)
+Published
+1990
+Western Pacific
+High-income
+Brunei Darussalam
+Both sexes
+73
+73.0
+NaN
+NaN
+1247
+Bahamas
+Life expectancy at age 60 (years)
+Published
+1990
+Americas
+High-income
+Bahamas
+Male
+17
+17.0
+NaN
+NaN
+3219
+Vanuatu
+Life expectancy at age 60 (years)
+Published
+1990
+Western Pacific
+Lower-middle-income
+Vanuatu
+Both sexes
+16
+16.0
+NaN
+NaN
+3226
+Bulgaria
+Life expectancy at birth (years)
+Published
+1990
+Europe
+Upper-middle-income
+Bulgaria
+Both sexes
+71
+71.0
+NaN
+NaN
+1240
+Belgium
+Life expectancy at age 60 (years)
+Published
+1990
+Europe
+High-income
+Belgium
+Female
+23
+23.0
+NaN
+NaN
+1239
+Belgium
+Life expectancy at birth (years)
+Published
+1990
+Europe
+High-income
+Belgium
+Both sexes
+76
+76.0
+NaN
+NaN
+1238
+Belgium
+Life expectancy at birth (years)
+Published
+1990
+Europe
+High-income
+Belgium
+Female
+79
+79.0
+NaN
+NaN
+1237
+Austria
+Life expectancy at birth (years)
+Published
+1990
+Europe
+High-income
+Austria
+Both sexes
+76
+76.0
+NaN
+NaN
+1236
+Austria
+Life expectancy at birth (years)
+Published
+1990
+Europe
+High-income
+Austria
+Male
+72
+72.0
+NaN
+NaN
+3207
+Mongolia
+Life expectancy at birth (years)
+Published
+1990
+Western Pacific
+Lower-middle-income
+Mongolia
+Female
+64
+64.0
+NaN
+NaN
+3231
+Belarus
+Life expectancy at birth (years)
+Published
+1990
+Europe
+Upper-middle-income
+Belarus
+Female
+76
+76.0
+NaN
+NaN
+3188
+Lesotho
+Life expectancy at age 60 (years)
+Published
+1990
+Africa
+Lower-middle-income
+Lesotho
+Female
+17
+17.0
+NaN
+NaN
+1277
+Estonia
+Life expectancy at birth (years)
+Published
+1990
+Europe
+High-income
+Estonia
+Both sexes
+70
+70.0
+NaN
+NaN
+1302
+Hungary
+Life expectancy at birth (years)
+Published
+1990
+Europe
+High-income
+Hungary
+Male
+65
+65.0
+NaN
+NaN
+3158
+Georgia
+Life expectancy at birth (years)
+Published
+1990
+Europe
+Lower-middle-income
+Georgia
+Male
+67
+67.0
+NaN
+NaN
+1300
+Croatia
+Life expectancy at birth (years)
+Published
+1990
+Europe
+High-income
+Croatia
+Male
+69
+69.0
+NaN
+NaN
+3159
+Georgia
+Life expectancy at age 60 (years)
+Published
+1990
+Europe
+Lower-middle-income
+Georgia
+Both sexes
+19
+19.0
+NaN
+NaN
+3160
+Guatemala
+Life expectancy at age 60 (years)
+Published
+1990
+Americas
+Lower-middle-income
+Guatemala
+Female
+19
+19.0
+NaN
+NaN
+...
+...
+...
+...
+...
+...
+...
+...
+...
+...
+...
+...
+...
+3175
+Iran (Islamic Republic of)
+Life expectancy at age 60 (years)
+Published
+2012
+Eastern Mediterranean
+Lower-middle-income
+Iran (Islamic Republic of)
+Male
+19
+19.0
+NaN
+NaN
+3174
+Iran (Islamic Republic of)
+Life expectancy at birth (years)
+Published
+2012
+Eastern Mediterranean
+Lower-middle-income
+Iran (Islamic Republic of)
+Female
+76
+76.0
+NaN
+NaN
+1285
+France
+Life expectancy at birth (years)
+Published
+2012
+Europe
+High-income
+France
+Both sexes
+82
+82.0
+NaN
+NaN
+1286
+France
+Life expectancy at age 60 (years)
+Published
+2012
+Europe
+High-income
+France
+Both sexes
+25
+25.0
+NaN
+NaN
+3171
+Iran (Islamic Republic of)
+Life expectancy at birth (years)
+Published
+2012
+Eastern Mediterranean
+Lower-middle-income
+Iran (Islamic Republic of)
+Male
+72
+72.0
+NaN
+NaN
+1288
+United Kingdom of Great Britain and Northern I...
+Life expectancy at age 60 (years)
+Published
+2012
+Europe
+High-income
+United Kingdom of Great Britain and Northern I...
+Female
+25
+25.0
+NaN
+NaN
+1290
+United Kingdom of Great Britain and Northern I...
+Life expectancy at age 60 (years)
+Published
+2012
+Europe
+High-income
+United Kingdom of Great Britain and Northern I...
+Both sexes
+24
+24.0
+NaN
+NaN
+1292
+Equatorial Guinea
+Life expectancy at birth (years)
+Published
+2012
+Africa
+High-income
+Equatorial Guinea
+Female
+57
+57.0
+NaN
+NaN
+3166
+Honduras
+Life expectancy at age 60 (years)
+Published
+2012
+Americas
+Lower-middle-income
+Honduras
+Male
+21
+21.0
+NaN
+NaN
+3165
+Honduras
+Life expectancy at birth (years)
+Published
+2012
+Americas
+Lower-middle-income
+Honduras
+Both sexes
+74
+74.0
+NaN
+NaN
+3163
+Guyana
+Life expectancy at age 60 (years)
+Published
+2012
+Americas
+Lower-middle-income
+Guyana
+Male
+13
+13.0
+NaN
+NaN
+3162
+Guyana
+Life expectancy at birth (years)
+Published
+2012
+Americas
+Lower-middle-income
+Guyana
+Female
+67
+67.0
+NaN
+NaN
+1301
+Croatia
+Life expectancy at age 60 (years)
+Published
+2012
+Europe
+High-income
+Croatia
+Both sexes
+21
+21.0
+NaN
+NaN
+3137
+Cameroon
+Life expectancy at birth (years)
+Published
+2012
+Africa
+Lower-middle-income
+Cameroon
+Male
+55
+55.0
+NaN
+NaN
+1303
+Hungary
+Life expectancy at birth (years)
+Published
+2012
+Europe
+High-income
+Hungary
+Both sexes
+75
+75.0
+NaN
+NaN
+3155
+Micronesia (Federated States of)
+Life expectancy at birth (years)
+Published
+2012
+Western Pacific
+Lower-middle-income
+Micronesia (Federated States of)
+Male
+68
+68.0
+NaN
+NaN
+3154
+Egypt
+Life expectancy at age 60 (years)
+Published
+2012
+Eastern Mediterranean
+Lower-middle-income
+Egypt
+Male
+16
+16.0
+NaN
+NaN
+1304
+Hungary
+Life expectancy at age 60 (years)
+Published
+2012
+Europe
+High-income
+Hungary
+Both sexes
+20
+20.0
+NaN
+NaN
+1306
+Ireland
+Life expectancy at birth (years)
+Published
+2012
+Europe
+High-income
+Ireland
+Female
+83
+83.0
+NaN
+NaN
+3150
+Ecuador
+Life expectancy at age 60 (years)
+Published
+2012
+Americas
+Lower-middle-income
+Ecuador
+Male
+21
+21.0
+NaN
+NaN
+3148
+Ecuador
+Life expectancy at birth (years)
+Published
+2012
+Americas
+Lower-middle-income
+Ecuador
+Female
+78
+78.0
+NaN
+NaN
+3147
+Djibouti
+Life expectancy at age 60 (years)
+Published
+2012
+Eastern Mediterranean
+Lower-middle-income
+Djibouti
+Female
+17
+17.0
+NaN
+NaN
+3146
+Djibouti
+Life expectancy at birth (years)
+Published
+2012
+Eastern Mediterranean
+Lower-middle-income
+Djibouti
+Both sexes
+61
+61.0
+NaN
+NaN
+3145
+Djibouti
+Life expectancy at birth (years)
+Published
+2012
+Eastern Mediterranean
+Lower-middle-income
+Djibouti
+Female
+63
+63.0
+NaN
+NaN
+1309
+Ireland
+Life expectancy at age 60 (years)
+Published
+2012
+Europe
+High-income
+Ireland
+Female
+25
+25.0
+NaN
+NaN
+1316
+Italy
+Life expectancy at birth (years)
+Published
+2012
+Europe
+High-income
+Italy
+Both sexes
+83
+83.0
+NaN
+NaN
+3141
+Cabo Verde
+Life expectancy at birth (years)
+Published
+2012
+Africa
+Lower-middle-income
+Cabo Verde
+Both sexes
+74
+74.0
+NaN
+NaN
+3139
+Cameroon
+Life expectancy at age 60 (years)
+Published
+2012
+Africa
+Lower-middle-income
+Cameroon
+Female
+17
+17.0
+NaN
+NaN
+3156
+Micronesia (Federated States of)
+Life expectancy at age 60 (years)
+Published
+2012
+Western Pacific
+Lower-middle-income
+Micronesia (Federated States of)
+Male
+16
+16.0
+NaN
+NaN
+4655
+Zimbabwe
+Healthy life expectancy (HALE) at birth (years)
+Published
+2012
+Africa
+Low-income
+Zimbabwe
+Female
+51
+51.0
+NaN
+NaN
+4656 rows × 12 columns
+
+# In[203]:
+
+
+#9. Get the column array using a variable
+ar1 = df.columns('WHO Region')
+np.char.multiply(ar1, 2)
+
+
+# In[149]:
+
+
+#10. Get the subset rows 11, 24, 37
+df.iloc[[11,24,37]]
+#output
+Indicator_Id
+Publication Status
+Year
+WHO Region
+World Bank income group
+Country
+Sex
+Display Value
+Numeric
+Low
+High
+Comments
+11
+Life expectancy at birth (years)
+Published
+2012
+Europe
+High-income
+Austria
+Female
+83
+83.0
+NaN
+NaN
+NaN
+24
+Life expectancy at age 60 (years)
+Published
+2012
+Western Pacific
+High-income
+Brunei Darussalam
+Female
+21
+21.0
+NaN
+NaN
+NaN
+37
+Life expectancy at age 60 (years)
+Published
+2012
+Europe
+High-income
+Cyprus
+Female
+26
+26.0
+NaN
+NaN
+NaN
+In [153]:
+
+
+# In[153]:
+
+
+#11. Get the subset rows excluding 5, 12, 23, and 56
+df.drop(df.index[4,11,22,56])
+
+
+# In[165]:
+
+
+#Load datasets from CSV
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+users = pd.read_csv('https://raw.githubusercontent.com/ben519/DataWrangling/master/Data/users.csv')
+sessions = pd.read_csv('https://raw.githubusercontent.com/ben519/DataWrangling/master/Data/sessions.csv')
+products = pd.read_csv('https://raw.githubusercontent.com/ben519/DataWrangling/master/Data/products.csv')
+transactions = pd.read_csv('https://raw.githubusercontent.com/ben519/DataWrangling/master/Data/transactions.csv')
+users.head()
+sessions.head()
+transactions.head()
+
+
+# In[158]:
+
+
+#12. Join users to transactions, keeping all rows from transactions and only matching rows from users (left join)
+transactions.merge(users, how='left', on='UserID')
+
+#output
+
+TransactionID
+TransactionDate
+UserID
+ProductID
+Quantity
+0
+1
+2010-08-21
+7.0
+2
+1
+1
+2
+2011-05-26
+3.0
+4
+1
+2
+3
+2011-06-16
+3.0
+3
+1
+3
+4
+2012-08-26
+1.0
+2
+3
+4
+5
+2013-06-06
+2.0
+4
+1
+# In[159]:
+
+
+#13. Which transactions have a UserID not in users?
+transactions[~transactions['UserID'].isin(users['UserID'])]
+
+#output
+
+TransactionID
+TransactionDate
+UserID
+ProductID
+Quantity
+User
+Gender
+Registered
+Cancelled
+0
+1
+2010-08-21
+7.0
+2
+1
+NaN
+NaN
+NaN
+NaN
+1
+2
+2011-05-26
+3.0
+4
+1
+Caroline
+female
+2012-10-23
+2016-06-07
+2
+3
+2011-06-16
+3.0
+3
+1
+Caroline
+female
+2012-10-23
+2016-06-07
+3
+4
+2012-08-26
+1.0
+2
+3
+Charles
+male
+2012-12-21
+NaN
+4
+5
+2013-06-06
+2.0
+4
+1
+Pedro
+male
+2010-08-01
+2010-08-08
+5
+6
+2013-12-23
+2.0
+5
+6
+Pedro
+male
+2010-08-01
+2010-08-08
+6
+7
+2013-12-30
+3.0
+4
+1
+Caroline
+female
+2012-10-23
+2016-06-07
+7
+8
+2014-04-24
+NaN
+2
+3
+NaN
+NaN
+NaN
+NaN
+8
+9
+2015-04-24
+7.0
+4
+3
+NaN
+NaN
+NaN
+NaN
+9
+10
+2016-05-08
+3.0
+4
+4
+Caroline
+female
+2012-10-23
+2016-06-07
+# In[160]:
+
+
+#14. Join users to transactions, keeping only rows from transactions and users that match via UserID (inner join)
+transactions.merge(users, how='inner', on='UserID')
+#output
+
+TransactionID
+TransactionDate
+UserID
+ProductID
+Quantity
+0
+1
+2010-08-21
+7.0
+2
+1
+7
+8
+2014-04-24
+NaN
+2
+3
+8
+9
+2015-04-24
+7.0
+4
+3
+
+# In[162]:
+
+
+#15. Join users to transactions, displaying all matching rows AND all non-matching rows (full outer join)
+transactions.merge(users, how='outer', on='UserID')
+#output
+
+TransactionID
+TransactionDate
+UserID
+ProductID
+Quantity
+User
+Gender
+Registered
+Cancelled
+0
+1.0
+2010-08-21
+7.0
+2.0
+1.0
+NaN
+NaN
+NaN
+NaN
+1
+9.0
+2015-04-24
+7.0
+4.0
+3.0
+NaN
+NaN
+NaN
+NaN
+2
+2.0
+2011-05-26
+3.0
+4.0
+1.0
+Caroline
+female
+2012-10-23
+2016-06-07
+3
+3.0
+2011-06-16
+3.0
+3.0
+1.0
+Caroline
+female
+2012-10-23
+2016-06-07
+4
+7.0
+2013-12-30
+3.0
+4.0
+1.0
+Caroline
+female
+2012-10-23
+2016-06-07
+5
+10.0
+2016-05-08
+3.0
+4.0
+4.0
+Caroline
+female
+2012-10-23
+2016-06-07
+6
+4.0
+2012-08-26
+1.0
+2.0
+3.0
+Charles
+male
+2012-12-21
+NaN
+7
+5.0
+2013-06-06
+2.0
+4.0
+1.0
+Pedro
+male
+2010-08-01
+2010-08-08
+8
+6.0
+2013-12-23
+2.0
+5.0
+6.0
+Pedro
+male
+2010-08-01
+2010-08-08
+9
+8.0
+2014-04-24
+NaN
+2.0
+3.0
+NaN
+NaN
+NaN
+NaN
+10
+NaN
+NaN
+4.0
+NaN
+NaN
+Brielle
+female
+2013-07-17
+NaN
+11
+NaN
+NaN
+5.0
+NaN
+NaN
+Benjamin
+male
+2010-11-25
+NaN
+
+# In[163]:
+
+
+#16. Determine which sessions occurred on the same day each user registered
+pd.merge(left=users, right=sessions, how='inner', left_on=['UserID', 'Registered'], right_on=['UserID', 'SessionDate'])
+#output
+
+UserID
+User
+Gender
+Registered
+Cancelled
+SessionID
+SessionDate
+0
+2
+Pedro
+male
+2010-08-01
+2010-08-08
+2
+2010-08-01
+1
+4
+Brielle
+female
+2013-07-17
+NaN
+9
+2013-07-17
+
+# In[166]:
+
+
+#17. Build a dataset with every possible (UserID, ProductID) pair (cross join)
+df3 = pd.DataFrame({'key': np.repeat(1, users.shape[0]), 'UserID': users.UserID})
+df4 = pd.DataFrame({'key': np.repeat(1, products.shape[0]), 'ProductID': products.ProductID})
+pd.merge(df3, df4,on='key')[['UserID', 'ProductID']]
+
+#output
+
+UserID
+ProductID
+0
+1
+1
+1
+1
+2
+2
+1
+3
+3
+1
+4
+4
+1
+5
+5
+2
+1
+6
+2
+2
+7
+2
+3
+8
+2
+4
+9
+2
+5
+10
+3
+1
+11
+3
+2
+12
+3
+3
+13
+3
+4
+14
+3
+5
+15
+4
+1
+16
+4
+2
+17
+4
+3
+18
+4
+4
+19
+4
+5
+20
+5
+1
+21
+5
+2
+22
+5
+3
+23
+5
+4
+24
+5
+5
+# In[167]:
+
+
+#18. Determine how much quantity of each product was purchased by each user
+df5 = pd.DataFrame({'key': np.repeat(1, users.shape[0]), 'UserID': users.UserID})
+df6 = pd.DataFrame({'key': np.repeat(1, products.shape[0]), 'ProductID': products.ProductID})
+user_products = pd.merge(df5, df6,on='key')[['UserID', 'ProductID']]
+pd.merge(user_products, transactions, how='left', on=['UserID', 'ProductID']).groupby(['UserID', 'ProductID']).apply(lambda x: pd.Series(dict(
+    Quantity=x.Quantity.sum()
+))).reset_index().fillna(0)
+#output
+
+UserID
+ProductID
+Quantity
+0
+1
+1
+0.0
+1
+1
+2
+3.0
+2
+1
+3
+0.0
+3
+1
+4
+0.0
+4
+1
+5
+0.0
+5
+2
+1
+0.0
+6
+2
+2
+0.0
+7
+2
+3
+0.0
+8
+2
+4
+1.0
+9
+2
+5
+6.0
+10
+3
+1
+0.0
+11
+3
+2
+0.0
+12
+3
+3
+1.0
+13
+3
+4
+6.0
+14
+3
+5
+0.0
+15
+4
+1
+0.0
+16
+4
+2
+0.0
+17
+4
+3
+0.0
+18
+4
+4
+0.0
+19
+4
+5
+0.0
+20
+5
+1
+0.0
+21
+5
+2
+0.0
+22
+5
+3
+0.0
+23
+5
+4
+0.0
+24
+5
+5
+0.0
+
+# In[168]:
+
+
+#19. For each user, get each possible pair of pair transactions (TransactionID1,TransacationID2)
+pd.merge(transactions, transactions, on='UserID')
+
+#output
+
+TransactionID_x
+TransactionDate_x
+UserID
+ProductID_x
+Quantity_x
+TransactionID_y
+TransactionDate_y
+ProductID_y
+Quantity_y
+0
+1
+2010-08-21
+7.0
+2
+1
+1
+2010-08-21
+2
+1
+1
+1
+2010-08-21
+7.0
+2
+1
+9
+2015-04-24
+4
+3
+2
+9
+2015-04-24
+7.0
+4
+3
+1
+2010-08-21
+2
+1
+3
+9
+2015-04-24
+7.0
+4
+3
+9
+2015-04-24
+4
+3
+4
+2
+2011-05-26
+3.0
+4
+1
+2
+2011-05-26
+4
+1
+5
+2
+2011-05-26
+3.0
+4
+1
+3
+2011-06-16
+3
+1
+6
+2
+2011-05-26
+3.0
+4
+1
+7
+2013-12-30
+4
+1
+7
+2
+2011-05-26
+3.0
+4
+1
+10
+2016-05-08
+4
+4
+8
+3
+2011-06-16
+3.0
+3
+1
+2
+2011-05-26
+4
+1
+9
+3
+2011-06-16
+3.0
+3
+1
+3
+2011-06-16
+3
+1
+10
+3
+2011-06-16
+3.0
+3
+1
+7
+2013-12-30
+4
+1
+11
+3
+2011-06-16
+3.0
+3
+1
+10
+2016-05-08
+4
+4
+12
+7
+2013-12-30
+3.0
+4
+1
+2
+2011-05-26
+4
+1
+13
+7
+2013-12-30
+3.0
+4
+1
+3
+2011-06-16
+3
+1
+14
+7
+2013-12-30
+3.0
+4
+1
+7
+2013-12-30
+4
+1
+15
+7
+2013-12-30
+3.0
+4
+1
+10
+2016-05-08
+4
+4
+16
+10
+2016-05-08
+3.0
+4
+4
+2
+2011-05-26
+4
+1
+17
+10
+2016-05-08
+3.0
+4
+4
+3
+2011-06-16
+3
+1
+18
+10
+2016-05-08
+3.0
+4
+4
+7
+2013-12-30
+4
+1
+19
+10
+2016-05-08
+3.0
+4
+4
+10
+2016-05-08
+4
+4
+20
+4
+2012-08-26
+1.0
+2
+3
+4
+2012-08-26
+2
+3
+21
+5
+2013-06-06
+2.0
+4
+1
+5
+2013-06-06
+4
+1
+22
+5
+2013-06-06
+2.0
+4
+1
+6
+2013-12-23
+5
+6
+23
+6
+2013-12-23
+2.0
+5
+6
+5
+2013-06-06
+4
+1
+24
+6
+2013-12-23
+2.0
+5
+6
+6
+2013-12-23
+5
+6
+25
+8
+2014-04-24
+NaN
+2
+3
+8
+2014-04-24
+2
+3
+
+# In[169]:
+
+
+#20. Join each user to his/her first occuring transaction in the transactions table
+pd.merge(users, transactions.groupby('UserID').first().reset_index(), how='left', on='UserID')
+
+#output
+UserID
+User
+Gender
+Registered
+Cancelled
+TransactionID
+TransactionDate
+ProductID
+Quantity
+0
+1
+Charles
+male
+2012-12-21
+NaN
+4.0
+2012-08-26
+2.0
+3.0
+1
+2
+Pedro
+male
+2010-08-01
+2010-08-08
+5.0
+2013-06-06
+4.0
+1.0
+2
+3
+Caroline
+female
+2012-10-23
+2016-06-07
+2.0
+2011-05-26
+4.0
+1.0
+3
+4
+Brielle
+female
+2013-07-17
+NaN
+NaN
+NaN
+NaN
+NaN
+4
+5
+Benjamin
+male
+2010-11-25
+NaN
+NaN
+NaN
+NaN
+NaN
